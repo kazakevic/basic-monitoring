@@ -1,6 +1,6 @@
 name: grafana
 services:
-  #Grafana
+  # Grafana
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -15,6 +15,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=d1x2k3d1x2k3
       - GF_INSTALL_PLUGINS=simpod-json-datasource
+  # Loki
   loki:
     image: grafana/loki:latest
     container_name: loki
@@ -26,6 +27,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./loki:/etc/loki
+  # Promtail
   promtail:
     image: grafana/promtail:latest
     container_name: promtail
@@ -35,6 +37,7 @@ services:
     command: -config.file=/etc/promtail/local-config.yaml
     networks:
         - app-network
+  # Prometheus
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -52,6 +55,7 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
+  # Node Exporter
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
